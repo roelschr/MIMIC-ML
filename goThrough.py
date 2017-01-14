@@ -24,6 +24,7 @@ def getMimicFiles(html, level):
     lvl_link = html+level
     soup = bs(requests.get(lvl_link).text, "lxml")
     records = [a['href'] for a in soup.find_all('a') if a['href'].startswith(level.split('/')[0])]
+    print records[0], records[-1]
 
     for rec in records:
         rec_link = lvl_link+rec
@@ -40,8 +41,8 @@ def saveMimicStructure(dict, name):
         pickle.dump(dict, f, pickle.HIGHEST_PROTOCOL)
 
 for i in intermediate_levels:
+    print i
     files = getMimicFiles(mimic2wb, i)
     saveMimicStructure(files, i.split('/')[0])
 
 print 'ok'
-
