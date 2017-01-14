@@ -1,0 +1,36 @@
+root: https://www.physionet.org/physiobank/database/mimic2wdb/
+
+hierarchy:
+
+intermediate levels
+	record directory
+		files
+
+
+
+files:
+
+directory.hea
+first non-empty non-comment	directory/seg nsignals freq samples hour:min:sec.
+second				layout_file _
+others				dat_file samples
+
+directory_layout.hea
+first 				header...
+others				several informations and signal_type (last string)
+
+dat_file.hea
+first				file nsignals freq samples hour:min:sec.
+others				file.dat format gain reso dc first_sample checksum block_size signal_type
+
+numfile.hea
+first				numfile nsignals freq samples hour:min:sec.
+others				numfile.dat format gain reso dc first_sample checksum block_size signal_type
+
+
+IDEA:
+
+create csv files for each record when they have abp and pleth
+record	segment	sig1	sig2	sig3	sig4 ...
+
+for numerical files repeat data to reach signals frequency
