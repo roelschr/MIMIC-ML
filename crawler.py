@@ -4,17 +4,18 @@
 #   for each key (record), the value is a list of files in the record directory.
 #
 # Example:
-# intermediate level 30 - DBstructure/30.pkl
+# intermediate level 30 - pathlist/30.pkl
 # { '3000003': ['3000003.hea', '3000003_001.dat', ..., '3000003n.hea']
 #   ...
-#   '3099997': ['3099997.hea', '3099997_001.dat', ..., '309997n_005.dat']   }
+#   '3099997': ['3099997.hea', '3099997_001.dat', ..., '309997n_005.dat']
 
 
 from bs4 import BeautifulSoup as bs
 import requests
+import pickle
 
 mimic2wb = "https://www.physionet.org/physiobank/database/mimic2wdb/"
-intermediate_levels = ['%s/' % i for i in range(31, 40)]
+intermediate_levels = ['%s/' % i for i in xrange(39, 40)]
 
 def getMimicFiles(html, level):
     """ Create the dictionary for a intermediate level """
@@ -27,6 +28,7 @@ def getMimicFiles(html, level):
     print records[0], records[-1]
 
     for rec in records:
+        # print rec,
         rec_link = lvl_link+rec
         soup = bs(requests.get(rec_link).text, "lxml")
         files = [a['href'] for a in soup.find_all('a') if a['href'].startswith(level.split('/')[0])]
@@ -35,9 +37,9 @@ def getMimicFiles(html, level):
 
     return rec_files
 
-import pickle
+
 def saveMimicStructure(dict, name):
-    with open('DBstructure/'+name+'.pkl', 'wb') as f:
+    with open('pathlist/'+name+'.pkl', 'wb') as f:
         pickle.dump(dict, f, pickle.HIGHEST_PROTOCOL)
 
 for i in intermediate_levels:
