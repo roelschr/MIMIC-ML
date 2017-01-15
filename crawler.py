@@ -1,5 +1,5 @@
 # A simple scraper to get the directory
-# structure for all records at the MIMIC II Waveform Database.
+# structure for all records on MIMIC II Waveform Database.
 # Each intermediate levels will be a dictionary where:
 #   for each key (record), the value is a list of files in the record directory.
 #
